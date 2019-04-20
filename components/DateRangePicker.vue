@@ -19,7 +19,7 @@
 			></v-text-field>
 		</template>
 
-		<v-card>
+		<v-card class="v-date-range-picker">
 			<v-layout row wrap>
 				<v-flex class="hidden-sm-and-down" xs2>
 					<v-card class="pt-5" flat>
@@ -47,6 +47,8 @@
 						</v-card-title>
 						<v-card-text class="text-xs-center">
 							<v-date-picker
+								:events="selectedRangeEvents"
+								:first-day-of-week="options.firstDayOfWeek"
 								:locale="options.locale"
 								:max="toTemp"
 								:show-current="false"
@@ -56,6 +58,8 @@
 								v-model="fromTemp"
 							></v-date-picker>
 							<v-date-picker
+								:events="selectedRangeEvents"
+								:first-day-of-week="options.firstDayOfWeek"
 								:locale="options.locale"
 								class="elevation-0"
 								no-title
@@ -94,7 +98,8 @@ export default {
       type: Object,
       default: () => ({
         locale: 'en',
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        firstDayOfWeek: 0
       })
     }
   },
@@ -165,6 +170,12 @@ export default {
     }
   },
   methods: {
+    selectedRangeEvents(val) {
+      return (
+        this.$moment(val).isSameOrAfter(this.fromTemp) &&
+        this.$moment(val).isSameOrBefore(this.toTemp)
+      )
+    },
     // Chọn ngày nhanh
     setDateRange(data) {
       let date = this.today.clone().add(data.number, data.unit)
@@ -214,4 +225,16 @@ export default {
 }
 </script>
 <style>
+.v-date-range-picker .v-date-picker-table__events {
+  height: 0;
+}
+.v-date-range-picker .v-date-picker-table--date .v-date-picker-table__events {
+  /* bottom: 0; */
+  top: 0;
+}
+.v-date-range-picker .v-date-picker-table__events > div {
+  height: 32px;
+  width: 32px;
+  opacity: 0.1;
+}
 </style>

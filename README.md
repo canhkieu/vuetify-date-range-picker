@@ -26,12 +26,6 @@ or
 <v-date-range-picker v-model="date"/>
 ```
 
-## Use with options
-
-```
-<v-date-range-picker v-model="date" :options="{locale:vi}"/>
-```
-
 ## Use with props
 
 ```
@@ -40,6 +34,13 @@ or
 
 - See more: https://vuetifyjs.com/en/components/text-fields#api
 
+## Use with options
+
+```
+<v-date-range-picker v-model="date" :options="{locale:vi}"/>
+```
+
 ### Options default
 
-- locale: 'us',
+- locale: 'us'
+- firstDayOfWeek: 0 // 0:sunday, 1:monday,...
