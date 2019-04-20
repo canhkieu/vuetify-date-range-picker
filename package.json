@@ -1,0 +1,8 @@
+{
+  "name": "v-date-range-picker",
+  "version": "1.0.0",
+  "description": "A vuetify date range picker component",
+  "main": "index.js",
+  "author": "Canh Kieu <minhcanhdn0704@gmail.com> (https://github.com/canhkieu)",
+  "license": "MIT"
+}
