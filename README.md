@@ -37,7 +37,7 @@ or
 ## Use with options
 
 ```
-<v-date-range-picker v-model="date" :options="{locale:vi}"/>
+<v-date-range-picker v-model="date" :options="{locale:vi, firstDayOfWeek:1}"/>
 ```
 
 ### Options default

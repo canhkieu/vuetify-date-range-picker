@@ -48,8 +48,8 @@
 						<v-card-text class="text-xs-center">
 							<v-date-picker
 								:events="selectedRangeEvents"
-								:first-day-of-week="options.firstDayOfWeek"
-								:locale="options.locale"
+								:first-day-of-week="defaultOptions.firstDayOfWeek"
+								:locale="defaultOptions.locale"
 								:max="toTemp"
 								:show-current="false"
 								class="elevation-0"
@@ -59,8 +59,8 @@
 							></v-date-picker>
 							<v-date-picker
 								:events="selectedRangeEvents"
-								:first-day-of-week="options.firstDayOfWeek"
-								:locale="options.locale"
+								:first-day-of-week="defaultOptions.firstDayOfWeek"
+								:locale="defaultOptions.locale"
 								class="elevation-0"
 								no-title
 								scrollable
@@ -96,11 +96,7 @@ export default {
     },
     options: {
       type: Object,
-      default: () => ({
-        locale: 'en',
-        format: 'YYYY-MM-DD',
-        firstDayOfWeek: 0
-      })
+      default: () => ({})
     }
   },
   data() {
@@ -109,6 +105,11 @@ export default {
       fromTemp: null,
       toTemp: null,
       today: this.$moment(),
+      defaultOptions: {
+        locale: 'en',
+        format: 'YYYY-MM-DD',
+        firstDayOfWeek: 0
+      },
       items: [
         {
           name: 'Today',
@@ -153,7 +154,7 @@ export default {
       if (val) {
         // Cập nhật biến tạm thời gian
         this.fromTemp = this.from
-        this.toTemp = this.to || this.today.format(this.options.format)
+        this.toTemp = this.to || this.today.format(this.defaultOptions.format)
       }
     },
     toTemp(val) {
@@ -188,12 +189,18 @@ export default {
         case 'weeks':
         case 'months':
         case 'years':
+          // Nếu thiết lập thứ đầu tiên là thứ 2, thì staftOf dùng isoWeek
+          data.unit =
+            this.defaultOptions.firstDayOfWeek === 1 ? 'isoWeek' : 'week'
           from = date.startOf(data.unit)
           to = date.clone().endOf(data.unit)
+
           break
       }
-      this.fromTemp = from.format(this.options.format)
-      this.toTemp = to.format(this.options.format)
+      console.log(this.defaultOptions.format)
+
+      this.fromTemp = from.format(this.defaultOptions.format)
+      this.toTemp = to.format(this.defaultOptions.format)
 
       this.submit()
     },
@@ -221,6 +228,9 @@ export default {
     close() {
       this.menu = false
     }
+  },
+  mounted() {
+    this.defaultOptions = Object.assign({}, this.defaultOptions, this.options)
   }
 }
 </script>
