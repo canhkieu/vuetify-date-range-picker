@@ -2,10 +2,12 @@
 
 ## Install
 
+Note: This plugin used momentjs to format date. Please install vue-moment, too.
+
 ```
-npm i v-date-range-picker
+npm i v-date-range-picker vue-moment
 or
-yarn add v-date-range-picker
+yarn add v-date-range-picker vue-moment
 ```
 
 ## Setup
@@ -16,6 +18,7 @@ main.js
 import VDateRangePicker from 'v-date-range-picker'
 Vue.use(VDateRangePicker)
 
+Vue.use(require('vue-moment'))
 ```
 
 ## Use
