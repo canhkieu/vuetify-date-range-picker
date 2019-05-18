@@ -2,7 +2,6 @@
 	<v-menu
 		:close-on-content-click="false"
 		full-width
-		lazy
 		max-width="850px"
 		offset-y
 		transition="slide-y-transition"
