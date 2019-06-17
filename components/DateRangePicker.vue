@@ -2,7 +2,7 @@
 	<v-menu
 		:close-on-content-click="false"
 		full-width
-		max-width="850px"
+		min-width="750px"
 		offset-y
 		transition="slide-y-transition"
 		v-model="menu"
@@ -20,60 +20,44 @@
 
 		<v-card class="v-date-range-picker">
 			<v-layout row wrap>
-				<v-flex class="hidden-sm-and-down" xs2>
-					<v-card class="pt-5" flat>
-						<v-card-text>
-							<v-btn
-								:key="item.name"
-								@click="setDateRange(item)"
-								block
-								color="primary"
-								v-for="item in items"
-							>{{item.name}}</v-btn>
-						</v-card-text>
-					</v-card>
+				<v-flex class="hidden-sm-and-down pa-2" shrink>
+					<v-btn
+						:key="item.name"
+						@click="setDateRange(item)"
+						block
+						class="mb-2"
+						text
+						v-for="item in items"
+					>{{item.name}}</v-btn>
 				</v-flex>
-				<v-divider flat vertical></v-divider>
-				<v-flex>
-					<v-card flat>
-						<v-card-title class="title secondary white--text justify-center">
-							<template v-if="fromTemp && toTemp">
-								<b>{{fromTemp}}</b>
-								&nbsp;&nbsp;&rarr;&nbsp;&nbsp;
-								<b>{{toTemp}}</b>
-							</template>
-							<template v-else>Select start and end date values</template>
-						</v-card-title>
-						<v-card-text class="text-xs-center">
+				<v-flex class="pt-2">
+					<v-layout row wrap>
+						<v-flex xs6>
 							<v-date-picker
 								:events="selectedRangeEvents"
 								:first-day-of-week="defaultOptions.firstDayOfWeek"
 								:locale="defaultOptions.locale"
 								:max="toTemp"
 								:show-current="false"
-								class="elevation-0"
-								no-title
-								scrollable
 								v-model="fromTemp"
 							></v-date-picker>
+						</v-flex>
+						<v-flex xs6>
 							<v-date-picker
 								:events="selectedRangeEvents"
 								:first-day-of-week="defaultOptions.firstDayOfWeek"
 								:locale="defaultOptions.locale"
-								class="elevation-0"
-								no-title
-								scrollable
 								v-model="toTemp"
 							></v-date-picker>
-						</v-card-text>
-						<v-card-actions>
-							<v-spacer></v-spacer>
-							<v-btn @click="close()" flat>Cancel</v-btn>
-							<v-btn :disabled="!(fromTemp && toTemp)" @click="submit()" color="success">OK</v-btn>
-						</v-card-actions>
-					</v-card>
+						</v-flex>
+					</v-layout>
 				</v-flex>
 			</v-layout>
+			<v-card-actions>
+				<v-spacer></v-spacer>
+				<v-btn @click="close()" text>Cancel</v-btn>
+				<v-btn :disabled="!(fromTemp && toTemp)" @click="submit()" color="success">OK</v-btn>
+			</v-card-actions>
 		</v-card>
 	</v-menu>
 </template>
@@ -238,7 +222,6 @@ export default {
   height: 0;
 }
 .v-date-range-picker .v-date-picker-table--date .v-date-picker-table__events {
-  /* bottom: 0; */
   top: 0;
 }
 .v-date-range-picker .v-date-picker-table__events > div {
