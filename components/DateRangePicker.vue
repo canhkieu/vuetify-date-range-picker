@@ -11,6 +11,7 @@
 			<v-text-field
 				:value="displayText"
 				@click:clear="clear"
+				append-icon="$vuetify.icons.dropdown"
 				clearable
 				readonly
 				v-bind="$attrs"
